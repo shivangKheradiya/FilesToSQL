@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FilesToSQL.ViewModel
+namespace FilesToSQL
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

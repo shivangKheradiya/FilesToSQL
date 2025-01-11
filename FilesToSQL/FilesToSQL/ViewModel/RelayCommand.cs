@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace FilesToSQL.ViewModel
+namespace FilesToSQL
 {
     public class RelayCommand : ICommand
     {

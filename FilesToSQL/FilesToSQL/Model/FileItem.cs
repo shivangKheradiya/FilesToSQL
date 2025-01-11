@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FilesToSQL.Model
+namespace FilesToSQL
 {
     public class FileItem
     {
