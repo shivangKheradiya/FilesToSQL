@@ -1,0 +1,48 @@
+﻿<Window x:Class="FilesToSQL.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FilesToSQL"
+        mc:Ignorable="d"
+        Title="Files To SQL Application" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <RadioButton Name="buSQLite" Content="SQLite" GroupName="StorageOption" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" IsChecked="True"/>
+            <RadioButton Name="buMSSQL" Content="MS SQL" GroupName="StorageOption" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!-- TreeView for Folder Structure -->
+            <TreeView Name="FolderTreeView" SelectedItemChanged="FolderTreeView_SelectedItemChanged" />
+
+            <!-- ListView for Files -->
+            <ListView Name="FileListView" Grid.Column="1" MouseDoubleClick="FileListView_MouseDoubleClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="200" />
+                        <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}" Width="100" />
+                        <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Size}" Width="100" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Button Name="SaveButton" Content="Save" Margin="2" Click="SaveButton_Click"/>
+        </Grid>
+        
+    </Grid>
+</Window>
