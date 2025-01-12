@@ -41,11 +41,14 @@ namespace FilesToSQL
                     viewModel.OpenIfFolderCommand.Execute(selectedFolder);
                 }
 
-                //if (selectedFolder.Type == "Folder")
-                //{
-                //    viewModel.AddFolderToTree(selectedFolder.Path);
-                //}
+                if (selectedFolder.Type == "Folder")
+                {
+                    FolderItem folderItem = (FolderItem)FolderTreeView.SelectedItem;
+                    FolderItem seletedFolderItem = folderItem.SubFolders.FirstOrDefault(x => x.Name == selectedFolder.Name);
+                    viewModel.LoadChildFoldersCommand.Execute(seletedFolderItem);
+                }
             }
+
         }
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -60,22 +63,20 @@ namespace FilesToSQL
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            bool isStorageSelected = buMSSQL.IsChecked == true || !buSQLite.IsChecked == true ;
-            if (!isStorageSelected)
+            DataProcessor dataProcessor = new DataProcessor();
+            dataProcessor.IsMSSQL = buMSSQL.IsChecked;
+            dataProcessor.IsSQLite = buSQLite.IsChecked;
+            bool isStorageSelected = dataProcessor.ValidateStorage();
+            if (isStorageSelected)
             {
-                MessageBox.Show("Select Storage Method.");
-                return;
+                dataProcessor.SeletedFolderItem = FileListView.SelectedItems;
+                dataProcessor.ExecuteProcess();
             }
+        }
 
-            if (buMSSQL.IsChecked == true)
-            {
-
-            }
-
-            if (buSQLite.IsChecked == true)
-            {
-
-            }
+        private void RetriveButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Hii");
         }
     }
 }

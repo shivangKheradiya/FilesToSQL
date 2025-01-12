@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataProcessor.cs" />
+    <Compile Include="MSSQLDBStore.cs" />
+    <Compile Include="SQLiteDBStore.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ExplorerViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />

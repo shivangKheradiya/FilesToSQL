@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <!-- TreeView for Folder Structure -->
-            <TreeView ItemsSource="{Binding FolderTree}" 
+            <TreeView Name="FolderTreeView" ItemsSource="{Binding FolderTree}" 
                   SelectedItemChanged="TreeView_SelectedItemChanged">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate DataType="{x:Type local:FolderItem}" ItemsSource="{Binding SubFolders}">
@@ -53,8 +53,12 @@
             </ListView>
         </Grid>
         <Grid Grid.Row="2">
-            <Button Name="SaveButton" Content="Save" Margin="2" Click="SaveButton_Click"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Name="SaveButton" Grid.Column="0" Content="Save" Margin="2" Click="SaveButton_Click"/>
+            <Button Name="RetriveButton" Grid.Column="1" Content="Retrive Data" Margin="2" Click="RetriveButton_Click"/>
         </Grid>
-        
     </Grid>
 </Window>
