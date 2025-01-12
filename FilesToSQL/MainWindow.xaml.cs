@@ -24,6 +24,7 @@ namespace FilesToSQL
     public partial class MainWindow : Window
     {
         DataProcessor dataProcessor { get; set; } = new DataProcessor();
+        bool TaskFinishedFlag { get; set; } = false;
 
         public MainWindow()
         {
@@ -50,7 +51,6 @@ namespace FilesToSQL
                     viewModel.LoadChildFoldersCommand.Execute(seletedFolderItem);
                 }
             }
-
         }
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -85,7 +85,27 @@ namespace FilesToSQL
             {
                 dataProcessor.ExecuteRetrivalProcess();
             }
+        }
 
+        private async Task RunTaskWithProgress()
+        {
+            // Set progress bar value to 0
+            SaveRetriveProgressBar.Value = 0;
+
+            // Simulating long-running task using Task.Delay
+            int totalSteps = 100;
+            for (int i = 0; i <= totalSteps; i++)
+            {
+                // Simulate doing some work by delaying
+                await Task.Delay(50);  // Simulate task progress
+                SaveRetriveProgressBar.Value = i; // Update progress bar value
+                if ( !TaskFinishedFlag && i == 100 )
+                {
+                    i = 0;
+                }
+            }
+
+            MessageBox.Show("Task Complete!");
         }
     }
 }

@@ -16,6 +16,7 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
         
         <Grid Grid.Row="0">
@@ -60,5 +61,7 @@
             <Button Name="SaveButton" Grid.Column="0" Content="Save" Margin="2" Click="SaveButton_Click"/>
             <Button Name="RetriveButton" Grid.Column="1" Content="Retrive Data" Margin="2" Click="RetriveButton_Click"/>
         </Grid>
+
+        <ProgressBar Grid.Row="3" Name="SaveRetriveProgressBar" Margin="2" />
     </Grid>
 </Window>
