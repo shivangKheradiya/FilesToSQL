@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace FilesToSQL
 {
-    internal class MSSQLDBStore
+    public class MSSQLDBStore
     {
+        public List<string> filesToStore { get; internal set; }
     }
 }

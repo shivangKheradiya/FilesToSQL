@@ -66,11 +66,11 @@ namespace FilesToSQL
             DataProcessor dataProcessor = new DataProcessor();
             dataProcessor.IsMSSQL = buMSSQL.IsChecked;
             dataProcessor.IsSQLite = buSQLite.IsChecked;
+            dataProcessor.SeletedFolderItem = FileListView.SelectedItems;
             bool isStorageSelected = dataProcessor.ValidateStorage();
             if (isStorageSelected)
             {
-                dataProcessor.SeletedFolderItem = FileListView.SelectedItems;
-                dataProcessor.ExecuteProcess();
+                dataProcessor.ExecuteStorageProcess();
             }
         }
 

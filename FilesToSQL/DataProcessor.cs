@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 
 namespace FilesToSQL
@@ -13,17 +14,20 @@ namespace FilesToSQL
         public bool? IsMSSQL { get; internal set; }
         public bool? IsSQLite { get; internal set; }
 
-        public SQLiteDBStore sQLiteDBStore { get; set; } = new SQLiteDBStore();
-        public MSSQLDBStore msSQLDBStore { get; set; } = new MSSQLDBStore();
+        public SQLiteDBStore SQLiteDBStoreObj { get; set; } = new SQLiteDBStore();
+        public MSSQLDBStore MSSQLDBStoreObj { get; set; } = new MSSQLDBStore();
 
-        public DataProcessor()
+        public DataProcessor() { }
+
+        internal void ExecuteStorageProcess()
         {
-            //allFiles.Add = Directory.GetFiles("folderPath", "*" , SearchOption.AllDirectories);
-        }
+            if (IsMSSQL == true)
+            {
+            }
 
-        internal void ExecuteProcess()
-        {
-
+            if (IsSQLite == true)
+            {
+            }
         }
 
         internal bool ValidateStorage()
@@ -35,12 +39,27 @@ namespace FilesToSQL
                 return false;
             }
 
+            List<string> filePaths = new List<string>(); 
+            foreach (var item in SeletedFolderItem)
+            {
+                if (item is FileItem fileItem && fileItem.Type == "Folder")
+                {
+                    // Retrieve all file paths within the folder and subfolders
+                    var folderFiles = Directory.GetFiles(fileItem.Path, "*", SearchOption.AllDirectories);
+
+                    // Add the file paths to the list
+                    filePaths.AddRange(folderFiles);
+                }
+            }
+
             if (IsMSSQL == true)
             {
+                MSSQLDBStoreObj.filesToStore = filePaths;
             }
 
             if (IsSQLite == true)
             {
+                SQLiteDBStoreObj.filesToStore = filePaths;
             }
 
             return true;
