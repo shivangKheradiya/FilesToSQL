@@ -23,10 +23,32 @@ namespace FilesToSQL
         {
             if (IsMSSQL == true)
             {
+                MSSQLDBStoreObj.SetConnectionString();
             }
 
             if (IsSQLite == true)
             {
+                if (SQLiteDBStoreObj.SetConnectionString())
+                {
+                    SQLiteDBStoreObj.CreateSQLiteTable();
+                    SQLiteDBStoreObj.ExcuteAction();
+                }
+            }
+        }
+
+        internal void ExecuteRetrivalProcess()
+        {
+            if (IsMSSQL == true)
+            {
+
+            }
+
+            if (IsSQLite == true)
+            {
+                if (SQLiteDBStoreObj.SetConnectionStringForRetrival())
+                {
+                    SQLiteDBStoreObj.RetrieveAllFilesFromDatabase();
+                }
             }
         }
 
@@ -50,11 +72,16 @@ namespace FilesToSQL
                     // Add the file paths to the list
                     filePaths.AddRange(folderFiles);
                 }
+                else
+                {
+                    filePaths.Add(((FileItem)item).Path);
+                }
             }
 
             if (IsMSSQL == true)
             {
                 MSSQLDBStoreObj.filesToStore = filePaths;
+                MSSQLDBStoreObj.SetConnectionString();
             }
 
             if (IsSQLite == true)

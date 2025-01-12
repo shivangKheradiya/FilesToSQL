@@ -23,6 +23,8 @@ namespace FilesToSQL
     /// </summary>
     public partial class MainWindow : Window
     {
+        DataProcessor dataProcessor { get; set; } = new DataProcessor();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -63,7 +65,6 @@ namespace FilesToSQL
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            DataProcessor dataProcessor = new DataProcessor();
             dataProcessor.IsMSSQL = buMSSQL.IsChecked;
             dataProcessor.IsSQLite = buSQLite.IsChecked;
             dataProcessor.SeletedFolderItem = FileListView.SelectedItems;
@@ -76,7 +77,15 @@ namespace FilesToSQL
 
         private void RetriveButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Hii");
+            dataProcessor.IsMSSQL = buMSSQL.IsChecked;
+            dataProcessor.IsSQLite = buSQLite.IsChecked;
+            dataProcessor.SeletedFolderItem = FileListView.SelectedItems;
+            bool isStorageSelected = dataProcessor.ValidateStorage();
+            if (isStorageSelected)
+            {
+                dataProcessor.ExecuteRetrivalProcess();
+            }
+
         }
     }
 }
