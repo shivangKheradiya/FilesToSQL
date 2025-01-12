@@ -155,7 +155,7 @@ namespace FilesToSQL
                 byte[] fileContent = File.ReadAllBytes(filePath); // Read file as binary
                 int totalChunks = (int)Math.Ceiling((double)fileContent.Length / chunkSize);
 
-                using (SqlConnection connection = new SqlConnection(ConnectionString))
+                using (SqlConnection connection = new SqlConnection(NewDatabaseConnectionString))
                 {
                     connection.Open();
 
@@ -184,28 +184,27 @@ namespace FilesToSQL
             }
         }
 
-        public void RetrieveAllFilesFromDatabase(string outputFolder)
+        public void RetrieveAllFilesFromDatabase()
         {
-            if (!Directory.Exists(outputFolder))
-            {
-                Directory.CreateDirectory(outputFolder);
-            }
-
             try
             {
                 using (SqlConnection connection = new SqlConnection(NewDatabaseConnectionString))
                 {
                     connection.Open();
-
+                    List<string> fileNames = new List<string>();
                     string query = "SELECT DISTINCT FileName FROM FileData";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            string fileName = reader.GetString(0);
-                            RetrieveFileFromDatabase(fileName, connection);
+                            fileNames.Add(reader.GetString(0));
                         }
+                    }
+
+                    foreach (string fileName in fileNames)
+                    {
+                        RetrieveFileFromDatabase(fileName, connection);
                     }
                 }
             }

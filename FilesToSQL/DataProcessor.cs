@@ -23,7 +23,8 @@ namespace FilesToSQL
         {
             if (IsMSSQL == true)
             {
-                MSSQLDBStoreObj.SetConnectionString();
+                MSSQLDBStoreObj.CreateMSSQLDatabaseAndTable();
+                MSSQLDBStoreObj.ExcuteAction();
             }
 
             if (IsSQLite == true)
@@ -40,7 +41,7 @@ namespace FilesToSQL
         {
             if (IsMSSQL == true)
             {
-
+                MSSQLDBStoreObj.RetrieveAllFilesFromDatabase();
             }
 
             if (IsSQLite == true)

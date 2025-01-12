@@ -65,25 +65,39 @@ namespace FilesToSQL
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            dataProcessor.IsMSSQL = buMSSQL.IsChecked;
-            dataProcessor.IsSQLite = buSQLite.IsChecked;
-            dataProcessor.SeletedFolderItem = FileListView.SelectedItems;
-            bool isStorageSelected = dataProcessor.ValidateStorage();
-            if (isStorageSelected)
+            try
             {
-                dataProcessor.ExecuteStorageProcess();
+                dataProcessor.IsMSSQL = buMSSQL.IsChecked;
+                dataProcessor.IsSQLite = buSQLite.IsChecked;
+                dataProcessor.SeletedFolderItem = FileListView.SelectedItems;
+                bool isStorageSelected = dataProcessor.ValidateStorage();
+                if (isStorageSelected)
+                {
+                    dataProcessor.ExecuteStorageProcess();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void RetriveButton_Click(object sender, RoutedEventArgs e)
         {
-            dataProcessor.IsMSSQL = buMSSQL.IsChecked;
-            dataProcessor.IsSQLite = buSQLite.IsChecked;
-            dataProcessor.SeletedFolderItem = FileListView.SelectedItems;
-            bool isStorageSelected = dataProcessor.ValidateStorage();
-            if (isStorageSelected)
+            try
             {
-                dataProcessor.ExecuteRetrivalProcess();
+                dataProcessor.IsMSSQL = buMSSQL.IsChecked;
+                dataProcessor.IsSQLite = buSQLite.IsChecked;
+                dataProcessor.SeletedFolderItem = FileListView.SelectedItems;
+                bool isStorageSelected = dataProcessor.ValidateStorage();
+                if (isStorageSelected)
+                {
+                    dataProcessor.ExecuteRetrivalProcess();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
